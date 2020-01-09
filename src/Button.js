@@ -3,6 +3,11 @@ import "./Button.css";
 
 class Button extends Component {
     
+    static defaultProps = {
+        letterColor: "white",
+        stretch: false,
+    }
+
     /*constructor() {
         super();
 
@@ -13,18 +18,27 @@ class Button extends Component {
 
         const buttonStyle = {
             padding: "18px",
-            margin: "0px",
-            borderRadius: "50%",
-            width: "50px",
+            margin: "5px",
+            borderRadius: !this.props.stretch ? "50%": "45%",
+            width: !this.props.stretch ? "50px" : "135px",
             height: "50px",
-            color: "white",
+            color: this.props.letterColor,
             backgroundColor: this.props.color,
+        }
+
+        const calcText = {
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: !this.props.stretch ? "center": "flex-start",
+            lineHeight: "50px",
+            fontFamily: "Helvetica",
+            fontSize: "40px",
         }
         
 
         return (
             <div style={buttonStyle}>
-                <div className="calcText">
+                <div style={calcText}>
                     {this.props.symbol}
                     
                 </div>
