@@ -19,11 +19,27 @@ class App extends Component {
 
     document.body.style = "background: black;"
 
-    window.addEventListener("orientationchange", () => {
-      this.setState({portraitMode: window.innerHeight > window.innerWidth});
+    //change from orientationchange event to resize, safari supports resize event
+    window.addEventListener("resize", () => {
+      this.setState({portraitMode: window.matchMedia("(orientation: portrait)").matches});
       //this.setState({value: this.state.value - 1});  
+      //this.setState({portraitMode: window.screen.height > window.screen.width});
     });
   }
+
+  componentDidMount() {
+    //let calculon = document.getElementsByClassName("calculon")[0] 
+    //calculon.scrollTop = calculon.scrollHeight;
+
+    //make sure calc at bottom of scroll, dependent on screen size
+    window.scrollTo(0, document.body.scrollHeight);
+  }
+
+  componentDidUpdate() {
+    window.scrollTo(0, document.body.scrollHeight);
+  }
+
+
 
   portraitModeValue() {
     let valueView = [
@@ -38,7 +54,7 @@ class App extends Component {
     let calcButtons = [
       <div className="calcButtons">
         <div className="buttonsRow">
-          <Button color="rgb(142, 142, 147)" symbol="c" letterColor="black"/>
+          <Button color="rgb(142, 142, 147)" symbol="c" letterColor="black" clickColor="rgb(209, 209, 214)"/>
           <Button color="rgb(142, 142, 147)" symbol={"+/-"} letterColor="black"/>
           <Button color="rgb(142, 142, 147)" symbol="%" letterColor="black"/>
           <Button color="#FF9500" symbol={"\u00f7"}/>
@@ -90,9 +106,9 @@ class App extends Component {
           <Button color="rgb(28, 28, 30)" symbol="m+" portraitMode={false}/>
           <Button color="rgb(28, 28, 30)" symbol="m-" portraitMode={false}/>
           <Button color="rgb(28, 28, 30)" symbol="mr" portraitMode={false}/>
-          <Button color="rgb(209, 209, 214)" symbol="AC" portraitMode={false}/>
-          <Button color="rgb(209, 209, 214)" symbol="+/-" portraitMode={false}/>
-          <Button color="rgb(209, 209, 214)" symbol="%" portraitMode={false}/>
+          <Button color="rgb(142, 142, 147)" symbol="AC" portraitMode={false}/>
+          <Button color="rgb(142, 142, 147)" symbol="+/-" portraitMode={false}/>
+          <Button color="rgb(142, 142, 147)" symbol="%" portraitMode={false}/>
           <Button color="#FF9500" symbol={"\u00f7"} portraitMode={false}/>
         </div>
         <div className="landscapeRow">
