@@ -17,6 +17,8 @@ class App extends Component {
 
     this.landscapeModeButtons = this.landscapeModeButtons.bind(this);
 
+    this.checkIfiPhoneXorHigher = this.checkIfiPhoneXorHigher.bind(this);
+
     document.body.style = "background: black;"
 
     //change from orientationchange event to resize, safari supports resize event
@@ -27,16 +29,8 @@ class App extends Component {
     });
   }
 
-  componentDidMount() {
-    //let calculon = document.getElementsByClassName("calculon")[0] 
-    //calculon.scrollTop = calculon.scrollHeight;
-
-    //make sure calc at bottom of scroll, dependent on screen size
-    window.scrollTo(0, document.body.scrollHeight);
-  }
-
-  componentDidUpdate() {
-    window.scrollTo(0, document.body.scrollHeight);
+  checkIfiPhoneXorHigher() {
+    return window.screen.height >= 812;
   }
 
 
@@ -44,43 +38,50 @@ class App extends Component {
   portraitModeValue() {
     let valueView = [
       <div className="valuePortraitFlex">
-        {this.state.value}        
+        {this.state.value}
       </div>
     ];
     return valueView;
   }
 
   portraitModeButtons() {
+
+
+    //let hold = {
+      //fontSize: "20em",
+      //color: "rgb(142, 142, 147)",
+    //}
+
     let calcButtons = [
       <div className="calcButtons">
         <div className="buttonsRow">
-          <Button color="rgb(142, 142, 147)" symbol="c" letterColor="black" clickColor="rgb(209, 209, 214)"/>
-          <Button color="rgb(142, 142, 147)" symbol={"+/-"} letterColor="black"/>
-          <Button color="rgb(142, 142, 147)" symbol="%" letterColor="black"/>
-          <Button color="#FF9500" symbol={"\u00f7"}/>
+          <Button color="rgb(142, 142, 147)" symbol="c" letterColor="black" clickColor="rgb(209, 209, 214)" specialSymbol={true}/>
+          <Button color="rgb(142, 142, 147)" symbol={<div>&#43;/&#8722;</div>} letterColor="black" specialSymbol={true} plusMinus={true}/>
+          <Button color="rgb(142, 142, 147)" symbol="%" letterColor="black" specialSymbol={true} percentSymbol={true}/>
+          <Button color="#f1a33c" symbol={"\u00f7"} specialSymbol={true} operationSymbol={true}/>
         </div>
         <div className="buttonsRow">
           <Button color="rgb(44, 44, 46)" symbol="7"/>
           <Button color="rgb(44, 44, 46)" symbol="8"/>
           <Button color="rgb(44, 44, 46)" symbol="9"/>
-          <Button color="#FF9500" symbol={"\u00d7"}/>
+          <Button color="#f1a33c" symbol={"\u00d7"} operationSymbol={true}/>
         </div>
         <div className="buttonsRow">
           <Button color="rgb(44, 44, 46)" symbol="4"/>
           <Button color="rgb(44, 44, 46)" symbol="5"/>
           <Button color="rgb(44, 44, 46)" symbol="6"/>
-          <Button color="#FF9500" symbol={"\u2212"}/>
+          <Button color="#f1a33c" symbol={"\u2212"} operationSymbol={true}/>
         </div>
         <div className="buttonsRow">
           <Button color="rgb(44, 44, 46)" symbol="1"/>
           <Button color="rgb(44, 44, 46)" symbol="2"/>
           <Button color="rgb(44, 44, 46)" symbol="3"/>
-          <Button color="#FF9500" symbol={"+"}/>
+          <Button color="#f1a33c" symbol={"\u002B"} operationSymbol={true}/>
         </div>
         <div className="buttonsRow">
           <Button color="rgb(44, 44, 46)" symbol="0" stretch={true}/>
           <Button color="rgb(44, 44, 46)" symbol="."/>          
-          <Button color="#FF9500" symbol="="/>
+          <Button color="#f1a33c" symbol="=" operationSymbol={true}/>
         </div>
       </div>
     ];    
@@ -164,6 +165,11 @@ class App extends Component {
   }
 
   render() {    
+
+    //padding at bottom different depending on phone screen size
+    if (this.checkIfiPhoneXorHigher()) {
+      document.getElementsByTagName("BODY")[0].style.bottom = "8%";
+    }
 
     if (this.state.portraitMode) {
       return (

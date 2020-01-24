@@ -1,17 +1,14 @@
+body {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 1%;
+}
+
 .calculon {
   
   display: flex;
   flex-direction: column;
-  
-  
-
-  
-}
-
-.topSpacer {
-  
-  padding: 25%;
-  
 }
 
 .valuePortraitFlex {
@@ -19,9 +16,13 @@
   flex-direction: row;
   color: white;
   justify-content: center; /*maybe flex-end?*/
-  font-size: 90px;
-  font-weight: 250;
+  font-size: 23vw;
+  font-weight: 200;
   padding-left: 45%;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  margin-bottom: 1%;
+
+  text-shadow: 1px 0px; 
 }
 
 .valueLandscapeFlex {
@@ -37,7 +38,6 @@
 .calcButtons {
   display: flex;
   flex-direction: column;
-
 }
 
 .buttonsRow {
